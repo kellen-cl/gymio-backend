@@ -1,6 +1,8 @@
 from pathlib import Path
 from datetime import timedelta
 from decouple import config
+import os
+
 
 # Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent

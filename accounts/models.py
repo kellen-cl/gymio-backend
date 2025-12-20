@@ -15,9 +15,12 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password=None, **extra_fields):
+    # Set these BEFORE creating the user
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('role', 'admin')
+        extra_fields.setdefault('first_name', extra_fields.get('first_name', 'Admin'))
+        extra_fields.setdefault('last_name', extra_fields.get('last_name', 'User'))
         
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
@@ -25,7 +28,6 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
         
         return self.create_user(email, password, **extra_fields)
-
 class User(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = [
         ('member', 'Member'),
